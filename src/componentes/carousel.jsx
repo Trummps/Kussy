@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 
 const images = [
-  "/sol.jpg",
-  "/kulo.jpg",
-  "/kullo.jpg",
-  "/oki.jpg",
-  "/upps.jpg",
+  "./sol.jpg",
+  "./kulo.jpg",
+  "./kullo.jpg",
+  "./oki.jpg",
+  "./upps.jpg",
 ];
 
 const Carousel = () => {

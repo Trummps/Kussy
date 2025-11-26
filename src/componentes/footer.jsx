@@ -1,47 +1,107 @@
+import { Facebook, Instagram, Phone, Mail, MapPin, Waves } from "lucide-react";
+
 export default function Footer() {
   return (
-    <footer className="relative overflow-hidden py-10 font-[Poppins] select-none pastel-bg">
+    <footer className="relative overflow-hidden pt-24 pb-14 font-[Poppins] select-none pastel-bg shadow-inner">
 
-      {/* Olas superiores en tonos pastel */}
-      <div className="absolute top-0 left-0 w-full overflow-hidden leading-none rotate-180 opacity-80">
+      {/* OLAS SUPERIORES */}
+      <div className="absolute top-0 left-0 w-full overflow-hidden opacity-95">
         <svg
-          className="block w-full h-10"
+          className="block w-full h-24"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 1440 320"
         >
           <path
-            fill="#c0e0ff"
-            d="M0,64L48,80C96,96,192,128,288,122.7C384,117,480,75,576,69.3C672,64,768,96,864,112C960,128,1056,128,1152,112C1248,96,1344,64,1392,48L1440,32V0H0Z"
+            fill="#c7e4ff"
+            d="M0,96L60,122.7C120,149,240,203,360,218.7C480,235,600,213,720,181.3C840,149,960,107,1080,85.3C1200,64,1320,64,1380,64L1440,64V0H0Z"
           ></path>
         </svg>
       </div>
 
-      {/* Contenido */}
-      <div className="relative text-center px-6 z-10">
-        <h3 className="text-3xl md:text-4xl font-bold text-sky-900 drop-shadow-md tracking-wide">
-          🌊 Mar del Perú
-        </h3>
+      {/* CONTENIDO */}
+      <div className="relative max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-14 px-10 z-10">
 
-        <p className="text-base md:text-lg mt-2 font-medium text-sky-800 opacity-95">
-          Conectando conocimiento y belleza del océano peruano.
-        </p>
+        {/* MARCA */}
+        <div>
+          <h3 className="text-3xl font-extrabold text-sky-900 tracking-wide flex items-center gap-2">
+            Mar del Perú
+            <Waves className="w-8 h-8 text-sky-700" />
+          </h3>
+          <p className="text-sky-800 mt-4 text-sm md:text-base font-medium leading-relaxed">
+            Conocimiento accesible y visual sobre la riqueza marina del Perú.
+          </p>
+        </div>
 
-        <p className="text-sm md:text-base mt-3 font-semibold text-sky-900 opacity-90">
-          ©Kusy {new Date().getFullYear()}
-        </p>
+        {/* NAVEGACIÓN */}
+        <div>
+          <h4 className="text-lg font-bold text-sky-900 mb-3">Navegación</h4>
+          <ul className="space-y-2 text-sky-800 font-medium">
+            {["Inicio", "Recursos", "Fauna Marina", "Contacto"].map((item, i) => (
+              <li
+                key={i}
+                className="hover:text-sky-950 cursor-pointer transition duration-200"
+              >
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* CONTACTO */}
+        <div>
+          <h4 className="text-lg font-bold text-sky-900 mb-3">Contacto</h4>
+          <ul className="space-y-3 text-sky-800 text-sm md:text-base">
+            <li className="flex items-center gap-3">
+              <Phone className="w-5 h-5 text-sky-700" />
+              +51 981 034 017
+            </li>
+            <li className="flex items-center gap-3">
+              <Mail className="w-5 h-5 text-sky-700" />
+              trumppsva@gmail.com
+            </li>
+            <li className="flex items-center gap-3">
+              <MapPin className="w-5 h-5 text-sky-700" />
+              Lima — Perú
+            </li>
+          </ul>
+        </div>
+
+        {/* REDES SOCIALES */}
+        <div>
+          <h4 className="text-lg font-bold text-sky-900 mb-3">Síguenos</h4>
+          <div className="flex gap-6">
+            {[Facebook, Instagram, Phone].map((Icon, i) => (
+              <a
+                key={i}
+                className="p-2 rounded-full bg-sky-100 hover:bg-sky-200 transition transform hover:scale-110 shadow-sm cursor-pointer"
+              >
+                <Icon className="w-6 h-6 text-sky-800" />
+              </a>
+            ))}
+          </div>
+        </div>
+
       </div>
 
-      {/* Estilos pastel animados */}
+      {/* DIVISOR */}
+      <div className="w-[90%] mx-auto mt-12 border-t border-sky-300/70"></div>
+
+      {/* COPYRIGHT */}
+      <p className="relative mt-6 text-center text-sky-900 font-semibold text-sm md:text-base opacity-95 z-10">
+        © Kusy {new Date().getFullYear()} — Todos los derechos reservados.
+      </p>
+
+      {/* ANIMACIÓN PASTEL */}
       <style>{`
         .pastel-bg {
-          background: linear-gradient(135deg, 
-            #dff6ff, 
-            #c7e8ff, 
-            #b0dbff, 
-            #d4f1ff
+          background: linear-gradient(135deg,
+            #e8f6ff,
+            #d7ebff,
+            #c9defe,
+            #d8f4ff
           );
-          background-size: 300% 300%;
-          animation: pastelFlow 20s ease-in-out infinite;
+          background-size: 350% 350%;
+          animation: pastelFlow 22s ease infinite;
         }
 
         @keyframes pastelFlow {

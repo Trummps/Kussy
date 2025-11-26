@@ -44,49 +44,51 @@ const PlayasPeru = () => {
   return (
     <div
       className="relative w-[95%] mx-auto mt-10 mb-20 p-12 md:p-16 rounded-3xl 
-      bg-gradient-to-br from-sky-100 via-sky-200 to-sky-300
-      shadow-2xl overflow-hidden 
-      animate-[waveBg_10s_ease-in-out_infinite]"
+      bg-gradient-to-br from-sky-100 via-cyan-100 to-teal-100
+      shadow-xl shadow-sky-200/40 border border-white/70 
+      overflow-hidden animate-[waveBg_12s_ease-in-out_infinite]"
     >
 
       {/* TÍTULO FLOTANTE */}
       <h1
-        className="text-center text-4xl md:text-5xl font-bold 
-        text-sky-700 mb-12 
-        animate-[float_4s_ease-in-out_infinite]
-        drop-shadow-md"
+        className="text-center text-4xl md:text-5xl font-extrabold 
+        text-sky-700 mb-12 tracking-wide
+        animate-[float_4s_ease-in-out_infinite]"
       >
-        Playas del Perú
+        🌴 Playas del Perú
+        <span className="block text-xl md:text-2xl mt-3 text-sky-800/90 font-medium">
+          Un recorrido por las costas más hermosas del país
+        </span>
       </h1>
 
       {/* TARJETAS */}
       {playas.map((playa, index) => (
         <div
           key={index}
-          className="bg-sky-50/90 backdrop-blur-md rounded-3xl p-6 md:p-8 mb-10 
-          shadow-xl shadow-sky-200
-          hover:shadow-2xl hover:shadow-sky-300
+          className="bg-white/70 backdrop-blur-xl rounded-3xl p-6 md:p-8 mb-10
+          shadow-lg shadow-sky-200/50 border border-sky-50
+          hover:shadow-2xl hover:shadow-sky-300/60
           transition-all duration-500
           animate-[slideUp_0.8s_ease-out_forwards] opacity-0
           hover:-translate-y-1 hover:scale-[1.01]"
-          style={{ animationDelay: `${index * 0.25}s` }}
+          style={{ animationDelay: `${index * 0.3}s` }}
         >
           <div className="flex flex-col md:flex-row gap-6 items-start">
 
-            {/* IMAGEN MÁS CELESTE Y PASTEL */}
+            {/* IMAGEN PASTEL SUAVECITA */}
             <img
               src={playa.imagen}
               alt={playa.nombre}
               className="w-full md:w-80 rounded-2xl object-cover 
-              shadow-xl shadow-sky-300
+              shadow-md shadow-sky-200/60 border border-sky-100
               transition-all duration-500 
-              hover:scale-110 hover:rotate-1 hover:shadow-sky-400"
+              hover:scale-105 hover:shadow-sky-300/80"
             />
 
             {/* TEXTO */}
             <div className="flex-1 text-sky-800">
               <h2 className="text-2xl font-semibold text-sky-700 mb-3 
-              border-b-4 border-sky-300 pb-1 inline-block">
+              border-b-4 border-sky-200 pb-1 inline-block">
                 {playa.nombre}
               </h2>
 
@@ -95,12 +97,12 @@ const PlayasPeru = () => {
               </p>
 
               <p className="leading-relaxed text-lg text-sky-900/80">
-                <strong className="text-sky-700">Por qué visitarla:</strong>{" "}
+                <strong className="text-teal-700">Por qué visitarla:</strong>{" "}
                 {playa.razones}
               </p>
 
               <p className="leading-relaxed mt-1 text-lg text-sky-900/80">
-                <strong className="text-sky-700">Consejo:</strong>{" "}
+                <strong className="text-teal-700">Consejo:</strong>{" "}
                 {playa.consejo}
               </p>
             </div>
@@ -114,18 +116,13 @@ const PlayasPeru = () => {
         {`
         @keyframes float {
           0% { transform: translateY(0); }
-          50% { transform: translateY(-10px); }
+          50% { transform: translateY(-8px); }
           100% { transform: translateY(0); }
         }
 
         @keyframes slideUp {
           0% { opacity: 0; transform: translateY(40px); }
           100% { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes fadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
         }
 
         @keyframes waveBg {

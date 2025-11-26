@@ -132,7 +132,7 @@ function Contacto() {
         {/* REDES SOCIALES CON LINKS */}
         <div className="flex justify-center gap-12 mt-14 text-4xl animate-pop">
           <a
-            href="https://www.instagram.com/trummps?igsh=MWh6MXgwMmM3N241OA=="
+            href="https://www.instagram.com/kussy_pee?igsh=b3FlcWx3ZTRyY3dm"
             target="_blank"
             rel="noopener noreferrer"
             className="p-4 bg-gradient-to-tr from-pink-300 to-rose-400 text-white rounded-full shadow-md hover:scale-125 transition-all duration-300"

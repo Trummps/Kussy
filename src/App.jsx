@@ -33,6 +33,7 @@ import Mar from "./componentes/Mar";
 import Pago from "./componentes/Pago";
 import Serums from "./componentes/serums";
 import Flora from "./componentes/flora";
+import Fundadores from "./componentes/Fundadores"
 
 import "./App.css";
 function App() {
@@ -114,6 +115,7 @@ function App() {
          <Route path="/Pago" element={<Pago />} />
         
         <Route path="/Blog" element={<Comunidad />} />
+       <Route path="/Fundadores" element={<Fundadores />} />
         <Route path="/registrarse" element={<Hola />} />
        
 

@@ -98,16 +98,60 @@ export default function Header({ productos = [] }) {
           bg-sky-200/60 backdrop-blur-md py-4 px-10 rounded-lg mx-6 mb-4
         "
       >
-        <ul className="flex flex-wrap gap-8">
-          <li><Link to="/mar-peruano" className="nav-item">Mar Peruano</Link></li>
-          <li><Link to="/fragancias" className="nav-item">Fragancias</Link></li>
-          <li><Link to="/skincare" className="nav-item">Skincare</Link></li>
-          <li><Link to="/maquillaje" className="nav-item">Maquillaje</Link></li>
-          <li><Link to="/higiene" className="nav-item">Higiene</Link></li>
-          <li><Link to="/blog" className="nav-item">Blog</Link></li>
-          <li><Link to="/Pago" className="nav-item"> Medios de  Pago</Link></li>
-          <li><Link to="/contacto" className="nav-item">Contactanos</Link></li>
-        </ul>
+   <div className="relative">
+  <ul className="flex flex-wrap gap-8">
+    <li className="relative group">
+      <Link 
+        to="/mar-peruano" 
+        className="nav-item font-bold text-white hover:text-yellow-300"
+      >
+        Mar Peruano
+      </Link>
+
+      {/* Submenu sobresaliendo sobre imágenes */}
+      <ul className="absolute top-full left-0 mt-2 w-56 hidden group-hover:flex flex-col
+                     bg-white bg-opacity-95 backdrop-blur-md text-blue-900 font-bold 
+                     border-2 border-blue-400 rounded-3xl shadow-2xl
+                     z-[9999] transform transition-all duration-300 scale-95 
+                     group-hover:scale-100 group-hover:opacity-100 opacity-0">
+        <li>
+          <Link 
+            to="/mar-peruano/pescados" 
+            className="block px-6 py-3 hover:bg-blue-400 hover:text-white rounded-xl transition-all duration-200"
+          >
+            Pescados
+          </Link>
+        </li>
+        <li>
+          <Link 
+            to="/mar-peruano/mariscos" 
+            className="block px-6 py-3 hover:bg-blue-400 hover:text-white rounded-xl transition-all duration-200"
+          >
+            Mariscos
+          </Link>
+        </li>
+        <li>
+          <Link 
+            to="/mar-peruano/algas" 
+            className="block px-6 py-3 hover:bg-blue-400 hover:text-white rounded-xl transition-all duration-200"
+          >
+            Algas
+          </Link>
+        </li>
+      </ul>
+    </li>
+
+    <li><Link to="/fragancias" className="nav-item">Fragancias</Link></li>
+    <li><Link to="/skincare" className="nav-item">Skincare</Link></li>
+    <li><Link to="/maquillaje" className="nav-item">Maquillaje</Link></li>
+    <li><Link to="/higiene" className="nav-item">Higiene</Link></li>
+    <li><Link to="/blog" className="nav-item">Blog</Link></li>
+    <li><Link to="/Pago" className="nav-item">Medios de Pago</Link></li>
+    <li><Link to="/contacto" className="nav-item">Contáctanos</Link></li>
+    <li><Link to="/Fundadores" className="nav-item">Fundadores</Link></li>
+  </ul>
+</div>
+
       </nav>
 
       {/* RESULTADOS */}

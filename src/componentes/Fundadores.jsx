@@ -1,118 +1,188 @@
 import React from "react";
-import { FaInstagram } from "react-icons/fa";
 
-const fundadores = [
+const perfiles = [
   {
-    nombre: "Ana Pérez",
-    rol: "Programadora Web",
-    descripcion: "Especialista en desarrollo frontend y backend, creando experiencias digitales únicas.",
-    imagen: "https://via.placeholder.com/200",
-    instagram: "https://instagram.com/ana_perez",
-    link: "#",
+    nombre: "Rosa Vargas",
+    apodo: "Trummps",
+    usuario: "@trummps",
+    genero: "Femenino",
+    biografia:
+      "Programadora Web · Amante del diseño limpio ✨\nCreando interfaces suaves y funcionales. Cuida tu ambiente y de ti mismo.",
+    seguidores: "320",
+    seguidos: "28",
+    publicaciones: "15",
+    imagen: "tri.png",
+    hobbies: [
+      "Viajes 🚐",
+      "Animalitos🐈‍🐕‍🦺",
+      "Naturaleza 🍃",
+      "Postres🥮",
+      "Blog🎞️",
+      "Páginas web 💻",
+      "Liderazgo💁🏻‍♀️",
+    ],
+    instagram: "https://www.instagram.com/trummps?igsh=cWl3YWpheXl3M2c0",
   },
   {
-    nombre: "Laura Gómez",
-    rol: "Creadora de Labiales",
-    descripcion: "Diseña y crea labiales exclusivos y artesanales con atención al detalle.",
-    imagen: "https://via.placeholder.com/200",
-    instagram: "https://instagram.com/laura_gomez",
-    link: "#",
-  },
-  {
-    nombre: "Sofía Martínez",
-    rol: "Creadora de Labiales",
-    descripcion: "Encargada de innovación y desarrollo de nuevos tonos y texturas.",
-    imagen: "https://via.placeholder.com/200",
-    instagram: "https://instagram.com/sofia_martinez",
-    link: "#",
-  },
-  {
-    nombre: "Carlos Ruiz",
-    rol: "Marketing & Branding",
-    descripcion: "Especialista en estrategias de marca y redes sociales, potenciando la presencia digital.",
-    imagen: "https://via.placeholder.com/200",
-    instagram: "https://instagram.com/carlos_ruiz",
-    link: "#",
-  },
-  {
-    nombre: "Valentina Torres",
-    rol: "Diseñadora de Producto",
-    descripcion: "Encargada del diseño y presentación de nuevos productos con estilo profesional.",
-    imagen: "https://via.placeholder.com/200",
-    instagram: "https://instagram.com/valentina_torres",
-    link: "#",
+    nombre: "Luciana Gonzales",
+    apodo: "Banana",
+    usuario: "luci.l.g",
+    genero: "Femenino",
+    biografia:
+      "Makeup Artist 💄✨\nCreadora de labiales artesanales en tonos pastel.",
+    seguidores: "480",
+    seguidos: "12",
+    publicaciones: "33",
+    imagen: "luciana.png",
+    hobbies: [
+      "Pintar 🎨",
+      "Caminar 🚶🏻‍♀",
+      "Hacer manualidades ✨",
+      "Escuchar música 🎶",
+      "Bailar 💃",
+      "Dibujar 🖍️",
+    ],
+    instagram: "https://www.instagram.com/luci.l.g?igsh=M3EzYzJvZ282NHEy",
   },
 ];
 
-export default function Fundadores() {
+export default function PerfilesPastel() {
   return (
-    <section className="py-28 bg-gradient-to-b from-blue-50 via-blue-100 to-blue-200">
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-        {/* Título con estilo mejorado */}
-        <h2 className="text-6xl sm:text-7xl font-extrabold text-center mb-24 tracking-tight leading-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-blue-400 to-blue-600 drop-shadow-lg animate-titleFade">
-          Conoce a nuestros fundadores
+    <>
+      {/* HEADER */}
+      <section className="py-20 bg-gradient-to-b from-sky-200/70 via-white to-sky-100">
+        <h2 className="text-5xl md:text-6xl text-center mb-12 tracking-tight text-sky-800 drop-shadow-md font-serif font-extrabold">
+          FUNDADORAS
         </h2>
+      </section>
 
-        <div className="flex flex-wrap justify-center gap-16">
-          {fundadores.map((persona, index) => (
+      {/* CARTAS CENTRADAS CON FONDO BEBÉ CLARITO */}
+      <section className="pb-20 pt-10 flex justify-center relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-[#E0F7FF] via-[#F0FCFF] to-[#E0F7FF] animate-gradient bg-[length:400%_400%] z-0"></div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 justify-items-center relative z-10">
+          {perfiles.map((p, i) => (
             <div
-              key={index}
-              className="bg-white rounded-3xl shadow-2xl p-10 flex flex-col items-center text-center transition-transform transform hover:scale-105 hover:shadow-3xl opacity-0 animate-fadeIn"
-              style={{ animationDelay: `${index * 0.2}s`, minWidth: "300px", maxWidth: "350px" }}
+              key={i}
+              className="
+                relative w-full max-w-[520px] rounded-4xl p-10
+                bg-white border border-sky-300/60
+                shadow-[0_10px_35px_rgba(120,180,255,0.30)]
+                hover:shadow-[0_15px_55px_rgba(120,180,255,0.45)]
+                transition-all duration-700 hover:-translate-y-2 overflow-hidden
+              "
             >
-              {/* Imagen */}
-              <div className="relative group w-52 h-52 mb-8">
-                <img
-                  src={persona.imagen}
-                  alt={persona.nombre}
-                  className="w-full h-full rounded-full object-cover border-4 border-blue-200 shadow-md"
-                />
+              {/* BG ANIMADO DE LA CARTA */}
+              <div className="absolute inset-0 rounded-4xl pointer-events-none">
+                <div className="absolute inset-0 rounded-4xl opacity-40 blur-2xl bg-gradient-to-r from-sky-300 via-sky-200 to-sky-400 animate-spin-slow"></div>
+                <div className="absolute inset-[3px] rounded-4xl bg-white"></div>
               </div>
 
-              {/* Nombre y rol */}
-              <h3 className="text-3xl sm:text-3xl font-semibold text-blue-700">{persona.nombre}</h3>
-              <p className="text-blue-500 font-medium mt-2 text-lg">{persona.rol}</p>
+              <div className="relative z-10">
+                {/* FOTO */}
+                <div className="flex justify-center mb-7">
+                  <div className="p-[7px] rounded-full bg-gradient-to-br from-sky-300 via-sky-200 to-sky-400 animate-pulse-slow">
+                    <div className="p-[5px] rounded-full bg-white shadow-inner">
+                      <img
+                        src={p.imagen}
+                        className="w-40 h-40 md:w-44 md:h-44 rounded-full object-cover shadow-lg"
+                      />
+                    </div>
+                  </div>
+                </div>
 
-              {/* Descripción */}
-              <p className="mt-5 text-blue-600 text-base leading-relaxed px-6 sm:px-4">
-                {persona.descripcion}
-              </p>
+                {/* APODO */}
+                <p className="text-center text-sm text-sky-700 font-semibold mb-1 opacity-80">
+                  {p.apodo}
+                </p>
 
-              {/* Botón Instagram en tonos celestes */}
-              <a
-                href={persona.instagram}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-8 inline-flex items-center justify-center gap-2 w-full bg-gradient-to-r from-blue-400 via-blue-500 to-blue-400 text-white font-semibold px-6 py-3 rounded-full shadow-lg hover:scale-105 hover:shadow-2xl transition-all text-lg"
-              >
-                <FaInstagram className="text-2xl" />
-                Instagram
-              </a>
+                {/* NOMBRE */}
+                <div className="text-center">
+                  <h3 className="text-3xl font-bold text-sky-900">{p.nombre}</h3>
+                  <p className="text-sky-600 text-lg">{p.usuario}</p>
+                </div>
+
+                {/* GÉNERO */}
+                <p className="text-center mt-2 text-sky-700 text-sm">
+                  <span className="font-semibold">Género:</span> {p.genero}
+                </p>
+
+                {/* BIO */}
+                <p className="mt-5 whitespace-pre-line text-center text-sky-900 text-[15px] leading-relaxed tracking-wide">
+                  {p.biografia}
+                </p>
+
+                {/* HOBBIES */}
+                <div className="mt-6">
+                  <p className="text-center text-sky-700 font-semibold text-sm mb-2">
+                    Hobbies:
+                  </p>
+                  <div className="flex flex-wrap justify-center gap-2">
+                    {p.hobbies.map((h, idx) => (
+                      <span
+                        key={idx}
+                        className="text-sky-900 text-xs bg-sky-200/70 border border-sky-300 px-3 py-1 rounded-full shadow-sm"
+                      >
+                        {h}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* BOTÓN INSTAGRAM MEJORADO */}
+                <a
+                  href={p.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="
+                    w-full block mt-6
+                    bg-gradient-to-r from-sky-400 via-sky-300 to-sky-500
+                    text-white font-bold
+                    py-3 rounded-3xl text-center
+                    shadow-lg hover:shadow-2xl
+                    hover:-translate-y-1
+                    transform transition-all duration-300
+                    text-lg tracking-wide
+                    animate-pulse-slow
+                  "
+                >
+                  Seguir
+                </a>
+              </div>
             </div>
           ))}
         </div>
-      </div>
+      </section>
 
-      {/* Animaciones */}
+      {/* ANIMACIONES */}
       <style>
         {`
-          @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px);}
-            to { opacity: 1; transform: translateY(0);}
+          @keyframes spin-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
           }
-          .animate-fadeIn {
-            animation: fadeIn 0.8s forwards;
+          .animate-spin-slow {
+            animation: spin-slow 20s linear infinite;
           }
 
-          @keyframes titleFade {
-            0% { opacity: 0; transform: translateY(-20px);}
-            100% { opacity: 1; transform: translateY(0);}
+          @keyframes pulse-slow {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
           }
-          .animate-titleFade {
-            animation: titleFade 1s ease-out forwards;
+          .animate-pulse-slow {
+            animation: pulse-slow 2.5s infinite;
+          }
+
+          @keyframes gradient {
+            0%{background-position:0% 50%}
+            50%{background-position:100% 50%}
+            100%{background-position:0% 50%}
+          }
+          .animate-gradient {
+            animation: gradient 15s ease infinite;
           }
         `}
       </style>
-    </section>
+    </>
   );
 }

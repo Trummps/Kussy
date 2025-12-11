@@ -32,7 +32,7 @@ export default function Comunidad() {
   const [editandoID, setEditandoID] = useState(null);
   const [nuevoContenido, setNuevoContenido] = useState("");
 
-  const [imagen, setImagen] = useState(null); // Estado para la imagen del comprobante
+  const [imagen, setImagen] = useState(null);
 
   const formatearFecha = useCallback((fecha) => {
     if (!fecha) return "";
@@ -249,67 +249,48 @@ export default function Comunidad() {
             </div>
           </div>
 
-      {/* Contenido */}
-{editandoID === post.id ? (
-  <div className="space-y-3">
-    
+          {/* CONTENIDO */}
+          {editandoID === post.id ? (
+            <div className="space-y-3">
+              <textarea
+                className="w-full border p-3 rounded-2xl bg-blue-50 dark:bg-blue-800/40 focus:ring-2 ring-blue-400 outline-none resize-none"
+                rows={3}
+                value={nuevoContenido}
+                onChange={(e) => setNuevoContenido(e.target.value)}
+              />
 
-    {/* Subir imagen */}
-    <div className="flex flex-col items-center gap-4">
-      <label className="cursor-pointer bg-sky-700 hover:bg-sky-800 text-white px-6 py-3 rounded-xl shadow-md transition text-lg">
-        Seleccionar imagen
-        <input
-          type="file"
-          accept="image/*"
-          className="hidden"
-          onChange={handleImagen} // Función que guarda la imagen en estado
-        />
-      </label>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => guardarEdicion(post.id)}
+                  className="flex-1 bg-green-500 hover:bg-green-600 text-white py-2 rounded-xl"
+                >
+                  Guardar
+                </button>
+                <button
+                  onClick={() => setEditandoID(null)}
+                  className="flex-1 bg-gray-500 hover:bg-gray-600 text-white py-2 rounded-xl"
+                >
+                  Cancelar
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div>
+              <p className="text-blue-900 dark:text-blue-50 leading-relaxed whitespace-pre-wrap">
+                {post.contenido}
+              </p>
 
-      {imagen && (
-        <img
-          src={imagen}
-          alt="previsualización"
-          className="w-48 h-48 object-cover rounded-xl shadow-lg border border-sky-300"
-        />
-      )}
-    </div>
+              {post.imagen && (
+                <img
+                  src={post.imagen}
+                  alt="post"
+                  className="w-48 h-48 object-cover rounded-xl shadow-lg border border-sky-300 mt-2"
+                />
+              )}
+            </div>
+          )}
 
-    {/* Botones */}
-    <div className="flex gap-2">
-      <button
-        onClick={() => guardarEdicion(post.id)}
-        className="flex-1 bg-green-500 hover:bg-green-600 text-white py-2 rounded-xl"
-      >
-        Guardar
-      </button>
-      <button
-        onClick={() => setEditandoID(null)}
-        className="flex-1 bg-gray-500 hover:bg-gray-600 text-white py-2 rounded-xl"
-      >
-        Cancelar
-      </button>
-    </div>
-  </div>
-) : (
-  <div>
-    {/* Mostrar contenido de texto */}
-    <p className="text-blue-900 dark:text-blue-50 leading-relaxed whitespace-pre-wrap">
-      {post.contenido}
-    </p>
-
-    {/* Mostrar imagen si existe */}
-    {post.imagen && (
-      <img
-        src={post.imagen}
-        alt="post"
-        className="w-48 h-48 object-cover rounded-xl shadow-lg border border-sky-300 mt-2"
-      />
-    )}
-  </div>
-)}
-
-          {/* Botones */}
+          {/* BOTONES */}
           {post.autorUid === userData.uid && editandoID !== post.id && (
             <div className="flex gap-3">
               <button

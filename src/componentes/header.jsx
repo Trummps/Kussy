@@ -1,212 +1,200 @@
-import { useState, useContext } from "react";
-import { Link } from "react-router-dom";
+import { useState, useContext, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { CarritoContext } from "./CarritoContext";
-import Carrito from "./carrito";
+import Carrito from "./Carrito";
+import { todosLosProductos } from "../data/productos";
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 
-export default function Header({ productos = [] }) {
+export default function Header() {
   const [search, setSearch] = useState("");
   const [resultados, setResultados] = useState([]);
+  const { carrito, agregarProducto } = useContext(CarritoContext);
   const [mostrarCarrito, setMostrarCarrito] = useState(false);
-  const { carrito } = useContext(CarritoContext);
+  const [usuario, setUsuario] = useState(null);
+  const navigate = useNavigate();
 
   const totalCantidad = carrito.reduce((acc, p) => acc + (p.cantidad || 0), 0);
 
-  // Search
+  useEffect(() => {
+    const auth = getAuth();
+    const unsubscribe = onAuthStateChanged(auth, (user) => setUsuario(user));
+    return () => unsubscribe();
+  }, []);
+
+  const cerrarSesion = async () => {
+    const auth = getAuth();
+    await signOut(auth);
+    navigate("/iniciar-sesion");
+  };
+
   const handleSearch = (e) => {
     e.preventDefault();
-    if (search.trim() === "") return;
+    if (!search.trim()) return;
 
-    const filtrados = productos.filter(
+    const filtrados = todosLosProductos.filter(
       (p) =>
         p.nombre.toLowerCase().includes(search.toLowerCase()) ||
-        (p.categoria && p.categoria.toLowerCase().includes(search.toLowerCase()))
+        p.marca.toLowerCase().includes(search.toLowerCase())
     );
     setResultados(filtrados);
   };
 
   return (
-    <header
-      className="
-        w-full shadow-xl overflow-hidden animated-header select-none relative
-        bg-sky-100 text-sky-900
-      "
-    >
-      <div className="flex flex-col md:flex-row justify-between items-center px-6 py-6">
+    <>
+      <header className="w-full bg-gradient-to-r from-sky-100 via-sky-200 to-sky-100 shadow-lg z-50">
 
-        {/* LOGO */}
-        <div className="flex items-center gap-4">
-          <img
-            src="/andre.png"
-            className="h-28 transition-transform duration-300 hover:scale-110 cursor-pointer"
-          />
-        </div>
+        {/* TOP HEADER */}
+        <div className="flex flex-col md:flex-row justify-between items-center px-6 py-6">
+          {/* LOGO */}
+          <div className="flex items-center gap-4">
+            <img
+              src="/andre.png"
+              className="h-28 transition-transform duration-300 hover:scale-110 cursor-pointer"
+            />
+          </div>
 
-        {/* BUSCADOR */}
-        <form onSubmit={handleSearch} className="flex items-center mt-4 md:mt-0">
-          <input
-            type="text"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder="Buscar productos..."
-            className="
-              px-4 py-3 rounded-l-lg w-72 md:w-80 outline-none
-              text-sky-900 font-bold shadow-sm text-lg bg-sky-50
-            "
-          />
-          <button
-            type="submit"
-            className="
-              px-4 py-3 bg-sky-500 hover:bg-sky-600 transition-all 
-              rounded-r-lg font-bold text-white text-lg
-            "
-          >
-            🔍
-          </button>
-        </form>
-
-        {/* LOGIN / REGISTRO / CARRITO */}
-        <div className="flex gap-6 mt-4 md:mt-0 items-center relative">
-          <Link to="/iniciar-sesion" className="header-link">Login</Link>
-          <Link to="/registrarse" className="header-link">Registrarse</Link>
-
-          <div className="relative">
+          {/* BUSCADOR */}
+          <form onSubmit={handleSearch} className="flex items-center mt-4 md:mt-0">
+            <input
+              type="text"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Buscar productos..."
+              className="px-4 py-3 rounded-l-lg w-72 md:w-80 outline-none font-semibold text-sky-900 bg-sky-50 shadow-inner placeholder-sky-400"
+            />
             <button
-              onClick={() => setMostrarCarrito(!mostrarCarrito)}
-              className="header-link flex items-center gap-1"
+              type="submit"
+              className="px-4 py-3 bg-sky-400 hover:bg-sky-500 rounded-r-lg font-semibold text-white shadow-md"
             >
-              🛒 Carrito
+              🔍
             </button>
+          </form>
 
-            {totalCantidad > 0 && (
-              <span className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm">
-                {totalCantidad}
-              </span>
+          {/* LOGIN / REGISTRO / USUARIO / CARRITO */}
+          <div className="flex gap-4 mt-4 md:mt-0 items-center relative">
+            {usuario ? (
+              <>
+                <Link to="/perfil" className="font-semibold text-sky-900 hover:text-sky-600">
+                  {usuario.displayName || "Mi Perfil"}
+                </Link>
+               
+                <button
+                  onClick={cerrarSesion}
+                  className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+                >
+                  Cerrar Sesión
+                </button>
+              </>
+            ) : (
+              <>
+                <Link to="/iniciar-sesion" className="font-semibold text-sky-900 hover:text-sky-600">
+                  Iniciar Sesión
+                </Link>
+                <Link to="/registrarse" className="font-semibold text-sky-900 hover:text-sky-600">
+                  Registrarse
+                </Link>
+              </>
             )}
 
-            {mostrarCarrito && (
-              <div className="absolute top-12 right-0 z-50">
-                <Carrito />
-              </div>
-            )}
+            <div className="relative">
+              <button
+                onClick={() => setMostrarCarrito(!mostrarCarrito)}
+                className="font-semibold text-sky-900 hover:text-sky-600 flex items-center gap-1"
+              >
+                🛒 Carrito
+              </button>
+              {totalCantidad > 0 && (
+                <span className="absolute -top-2 -right-2 bg-red-400 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm">
+                  {totalCantidad}
+                </span>
+              )}
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* NAVBAR */}
-      <nav
-        className="
-          bg-sky-200/60 backdrop-blur-md py-4 px-10 rounded-lg mx-6 mb-4
-        "
-      >
-   <div className="relative">
-  <ul className="flex flex-wrap gap-8">
-    <li className="relative group">
-      <Link 
-        to="/mar-peruano" 
-        className="nav-item font-bold text-white hover:text-yellow-300"
-      >
-        Mar Peruano
-      </Link>
+        {/* NAVBAR */}
+        <nav className="bg-sky-200/70 backdrop-blur-md py-4 px-10 rounded-lg mx-6 mb-4 shadow-inner relative z-40">
+          <ul className="flex flex-wrap gap-8">
+            {/* MAR PERUANO */}
+            <li className="relative group">
+              <Link to="/Mar-Peruano" className="font-semibold text-white hover:text-yellow-300">
+                Mar Peruano
+              </Link>
 
-      {/* Submenu sobresaliendo sobre imágenes */}
-      <ul className="absolute top-full left-0 mt-2 w-56 hidden group-hover:flex flex-col
-                     bg-white bg-opacity-95 backdrop-blur-md text-blue-900 font-bold 
-                     border-2 border-blue-400 rounded-3xl shadow-2xl
-                     z-[9999] transform transition-all duration-300 scale-95 
-                     group-hover:scale-100 group-hover:opacity-100 opacity-0">
-        <li>
-          <Link 
-            to="/mar-peruano/pescados" 
-            className="block px-6 py-3 hover:bg-blue-400 hover:text-white rounded-xl transition-all duration-200"
-          >
-            Pescados
-          </Link>
-        </li>
-        <li>
-          <Link 
-            to="/mar-peruano/mariscos" 
-            className="block px-6 py-3 hover:bg-blue-400 hover:text-white rounded-xl transition-all duration-200"
-          >
-            Mariscos
-          </Link>
-        </li>
-        <li>
-          <Link 
-            to="/mar-peruano/algas" 
-            className="block px-6 py-3 hover:bg-blue-400 hover:text-white rounded-xl transition-all duration-200"
-          >
-            Algas
-          </Link>
-        </li>
-      </ul>
-    </li>
+              {/* SUBMENU */}
+              <ul className="absolute top-full left-0 hidden group-hover:flex flex-col
+                             bg-white bg-opacity-95 backdrop-blur-md text-sky-900 font-semibold
+                             border border-sky-300 rounded-2xl shadow-2xl
+                             min-w-[200px] z-50">
+                <li>
+                  <Link to="/Mar-Peruano/recursos" className="px-6 py-3 hover:bg-sky-300 hover:text-white block rounded-xl">
+                    Recursos
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/Mar-Peruano/playas" className="px-6 py-3 hover:bg-sky-300 hover:text-white block rounded-xl">
+                    Playas
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/Mar-Peruano/fauna" className="px-6 py-3 hover:bg-sky-300 hover:text-white block rounded-xl">
+                    Fauna
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/Mar-Peruano/flora" className="px-6 py-3 hover:bg-sky-300 hover:text-white block rounded-xl">
+                    Flora
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/Mar-Peruano/mar" className="px-6 py-3 hover:bg-sky-300 hover:text-white block rounded-xl">
+                    Mar
+                  </Link>
+                </li>
+              </ul>
+            </li>
 
-    <li><Link to="/fragancias" className="nav-item">Fragancias</Link></li>
-    <li><Link to="/skincare" className="nav-item">Skincare</Link></li>
-    <li><Link to="/maquillaje" className="nav-item">Maquillaje</Link></li>
-    <li><Link to="/higiene" className="nav-item">Higiene</Link></li>
-    <li><Link to="/blog" className="nav-item">Blog</Link></li>
-    <li><Link to="/Pago" className="nav-item">Medios de Pago</Link></li>
-    <li><Link to="/contacto" className="nav-item">Contáctanos</Link></li>
-    <li><Link to="/Fundadores" className="nav-item">Fundadores</Link></li>
-  </ul>
-</div>
-
-      </nav>
-
-      {/* RESULTADOS */}
-      {resultados.length > 0 && (
-        <div
-          className="
-            bg-blue-50 rounded-xl shadow p-4 mx-6 mb-6
-          "
-        >
-          <h3 className="font-bold text-blue-700 mb-2">
-            Resultados:
-          </h3>
-          <ul>
-            {resultados.map((p) => (
-              <li
-                key={p.id}
-                className="border-b border-blue-200 py-2"
-              >
-                {p.nombre} - <span className="text-blue-500">{p.categoria}</span>
-              </li>
-            ))}
+            <li><Link to="/Fragancias" className="font-semibold text-white hover:text-yellow-300">Fragancias</Link></li>
+            <li><Link to="/skincare" className="font-semibold text-white hover:text-yellow-300">Skincare</Link></li>
+            <li><Link to="/Cabello" className="font-semibold text-white hover:text-yellow-300">Cabello</Link></li>
+            <li><Link to="/Maquillaje" className="font-semibold text-white hover:text-yellow-300">Maquillaje</Link></li>
+            <li><Link to="/Higiene" className="font-semibold text-white hover:text-yellow-300">Higiene</Link></li>
+            {usuario && <li><Link to="/Blog" className="font-semibold text-white hover:text-yellow-300">Blog</Link></li>}
+            <li><Link to="/Pago" className="font-semibold text-white hover:text-yellow-300">Medios de Pago</Link></li>
+            <li><Link to="/contacto" className="font-semibold text-white hover:text-yellow-300">Contáctanos</Link></li>
+            <li><Link to="/Fundadores" className="font-semibold text-white hover:text-yellow-300">Fundadores</Link></li>
           </ul>
+        </nav>
+
+        {/* RESULTADOS DE BUSQUEDA */}
+        {resultados.length > 0 && (
+          <div className="bg-sky-50 rounded-xl shadow p-4 mx-6 mb-6 relative z-50">
+            <h3 className="font-semibold text-sky-700 mb-4">Resultados:</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              {resultados.map((p) => (
+                <div key={p.id} className="bg-white rounded-xl shadow hover:shadow-xl transition p-3 border border-sky-100">
+                  <Link to={`/${p.categoria}`}>
+                    <img src={p.imagen} alt={p.nombre} className="w-full h-40 object-cover rounded-lg mb-3"/>
+                  </Link>
+                  <h4 className="font-semibold text-sky-900">{p.nombre}</h4>
+                  <p className="text-sky-500 text-sm">{p.marca}</p>
+                  {p.precio && <p className="font-bold text-sky-700 mt-1">S/ {p.precio}</p>}
+                  <button onClick={() => agregarProducto(p)} className="mt-3 w-full bg-sky-400 hover:bg-sky-500 text-white font-semibold py-2 rounded-lg">
+                    Añadir al carrito 🛒
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </header>
+
+      {/* Carrito fijo */}
+      {mostrarCarrito && (
+        <div className="fixed top-24 right-10 z-[9999999]">
+          <Carrito />
         </div>
       )}
-
-      {/* ESTILOS */}
-      <style>{`
-        .header-link {
-          font-weight: bold;
-          color: #0c4a6e;
-          font-size: 1.15rem;
-          transition: .3s;
-        }
-        .header-link:hover { color: #0284c7; }
-
-        .nav-item { 
-          font-weight: bold;
-          color: #0c4a6e;
-          font-size: 1.15rem;
-          transition: .3s;
-        }
-        .nav-item:hover { color: #0284c7; }
-
-        .animated-header {
-          background: linear-gradient(-45deg, #d0f0ff, #a0e0ff, #80d4ff, #b0e6ff);
-          background-size: 400% 400%;
-          animation: gradientMove 30s ease infinite;
-          font-family: 'Poppins', sans-serif;
-        }
-        @keyframes gradientMove {
-          0% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-          100% { background-position: 0% 50%; }
-        }
-      `}</style>
-    </header>
+    </>
   );
 }

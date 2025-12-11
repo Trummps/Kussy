@@ -1,137 +1,177 @@
-import React from "react";
+import React, { useState } from "react";
 
 const PlayasPeru = () => {
-  const playas = [
-    {
-      nombre: "Punta Sal (Tumbes)",
-      descripcion:
-        "Playa cálida y de aguas claras, con arena blanca, ideal para descansar en familia.",
-      razones: "Clima cálido todo el año, ambiente tranquilo, vistas hermosas.",
-      consejo:
-        "En temporada baja es más silenciosa; en alta, ofrece más servicios.",
-      imagen: "puntasal.jpg",
-    },
-    {
-      nombre: "Máncora (Piura)",
-      descripcion:
-        "La playa más famosa del norte para surf, gastronomía y ambiente vibrante.",
-      razones: "Perfecta para quienes buscan playa + surf + vida costera.",
-      consejo:
-        "Si prefieres calma, quédate en zonas más alejadas del centro.",
-      imagen: "mANCORA.jpg",
-    },
-    {
-      nombre: "Costa Verde (Lima)",
-      descripcion:
-        "Franja costera urbana con playas y miradores modernos en la capital.",
-      razones: "Ideal para disfrutar mar + ciudad sin viajar lejos.",
-      consejo:
-        "Ve al atardecer para disfrutar vistas espectaculares.",
-      imagen: "costaverde.jpg",
-    },
-    {
-      nombre: "Islas Ballestas y Paracas (Ica)",
-      descripcion:
-        "Aventura costera con fauna marina y paisajes únicos.",
-      razones:
-        "Permite ver lobos marinos, aves y formaciones costeras.",
-      consejo:
-        "Lleva cámara y combina la visita con el desierto de Paracas.",
-      imagen: "islasballestas.png",
-    },
+  // Tarjetas todas en celeste bebé claro
+  const regiones = [
+    { region: "Norte" },
+    { region: "Centro" },
+    { region: "Centro / Oeste" },
+    { region: "Sur" },
   ];
 
-  return (
-    <div
-      className="relative w-[95%] mx-auto mt-10 mb-20 p-12 md:p-16 rounded-3xl 
-      bg-gradient-to-br from-sky-100 via-cyan-100 to-teal-100
-      shadow-xl shadow-sky-200/40 border border-white/70 
-      overflow-hidden animate-[waveBg_12s_ease-in-out_infinite]"
-    >
+  const playasPorRegion = [
+    [
+      {
+        nombre: "🏝️ Punta Sal (Tumbes)",
+        descripcion: "Aguas cálidas y tranquilas ideales para descansar.",
+        caracteristicas: [
+          "Soleado todo el año",
+          "Hoteles frente al mar",
+          "Arena clara y fina",
+        ],
+        extra:
+          "Dato curioso: Punta Sal tiene agua de más de 24°C y presencia de delfines.",
+        imagen: "/puntasal.jpg",
+      },
+      {
+        nombre: "🏄‍♂️ Máncora (Piura)",
+        descripcion: "Ambiente juvenil y olas ideales para surf.",
+        caracteristicas: [
+          "Sol eterno",
+          "Alta actividad turística",
+          "Vida nocturna activa",
+        ],
+        extra:
+          "Dato curioso: Máncora tiene vientos constantes y olas largas perfectas para surf.",
+        imagen: "/mancora.jpg",
+      },
+    ],
+    [
+      {
+        nombre: "🌊 Ancón (Lima)",
+        descripcion: "Balneario histórico con mar sereno.",
+        caracteristicas: [
+          "Clima templado",
+          "Restaurantes",
+          "Aguas tranquilas",
+        ],
+        extra:
+          "Dato curioso: fue uno de los balnearios más exclusivos del país.",
+        imagen: "/ancon.jpg",
+      },
+      {
+        nombre: "⛱️ Cerro Azul (Cañete)",
+        descripcion: "Playa tranquila con muelle icónico.",
+        caracteristicas: [
+          "Ambiente familiar",
+          "Atardeceres hermosos",
+          "Aguas limpias",
+        ],
+        extra: "Dato curioso: su muelle aparece en varias películas.",
+        imagen: "/cerroazul.jpg",
+      },
+    ],
+    [
+      {
+        nombre: "🏝️ Huanchaco (La Libertad)",
+        descripcion: "Famosa por los caballitos de totora.",
+        caracteristicas: [
+          "Reserva mundial de surf",
+          "Cultura viva",
+          "Mar templado",
+        ],
+        extra:
+          "Dato curioso: los caballitos de totora tienen más de 3000 años de historia.",
+        imagen: "/huanchaco.jpg",
+      },
+      {
+        nombre: "🛥️ Islas Ballestas (Ica)",
+        descripcion: "Islas con gran biodiversidad marina.",
+        caracteristicas: [
+          "Aves marinas",
+          "Lobos marinos",
+          "Formaciones naturales",
+        ],
+        extra: "Dato curioso: hogar de grandes colonias de lobos marinos.",
+        imagen: "/islasballestas.png",
+      },
+    ],
+    [
+      {
+        nombre: "🏖️ La Mina (Paracas)",
+        descripcion: "Aguas cristalinas dentro de la reserva.",
+        caracteristicas: [
+          "Arena clara",
+          "Ideal para snorkel",
+          "Zona protegida",
+        ],
+        extra:
+          "Dato curioso: su forma semicerrada crea una piscina natural.",
+        imagen: "/lamina.jpg",
+      },
+      {
+        nombre: "🏝️ Playa Roja (Paracas)",
+        descripcion: "Arena rojiza única por rocas volcánicas.",
+        caracteristicas: [
+          "Fotografía ideal",
+          "Clima estable",
+          "Acantilados impresionantes",
+        ],
+        extra: "Dato curioso: su color proviene de rocas volcánicas.",
+        imagen: "/playaroja.jpg",
+      },
+    ],
+  ];
 
-      {/* TÍTULO FLOTANTE */}
-      <h1
-        className="text-center text-4xl md:text-5xl font-extrabold 
-        text-sky-700 mb-12 tracking-wide
-        animate-[float_4s_ease-in-out_infinite]"
+  const PlayaCard = ({ playa }) => {
+    const [open, setOpen] = useState(false);
+
+    return (
+      <div
+        onClick={() => setOpen(!open)}
+        className="bg-[#A9C7DA]
+ rounded-3xl shadow-md border border-white/40 
+        overflow-hidden transform transition-all duration-500 
+        hover:shadow-lg hover:-translate-y-2 cursor-pointer"
       >
-        🌴 Playas del Perú
-        <span className="block text-xl md:text-2xl mt-3 text-sky-800/90 font-medium">
-          Un recorrido por las costas más hermosas del país
-        </span>
-      </h1>
+        <img
+          src={playa.imagen}
+          alt={playa.nombre}
+          className="w-full h-64 object-cover transition-transform duration-700 hover:scale-110"
+        />
+        <div className="p-6 text-sky-900">
+          <h3 className="text-2xl font-bold mb-2">{playa.nombre}</h3>
+          <p className="opacity-80 mb-3">{playa.descripcion}</p>
+          <ul className="list-disc ml-5 opacity-80 space-y-1 text-sm">
+            {playa.caracteristicas.map((item, i) => (
+              <li key={i}>{item}</li>
+            ))}
+          </ul>
 
-      {/* TARJETAS */}
-      {playas.map((playa, index) => (
-        <div
-          key={index}
-          className="bg-white/70 backdrop-blur-xl rounded-3xl p-6 md:p-8 mb-10
-          shadow-lg shadow-sky-200/50 border border-sky-50
-          hover:shadow-2xl hover:shadow-sky-300/60
-          transition-all duration-500
-          animate-[slideUp_0.8s_ease-out_forwards] opacity-0
-          hover:-translate-y-1 hover:scale-[1.01]"
-          style={{ animationDelay: `${index * 0.3}s` }}
-        >
-          <div className="flex flex-col md:flex-row gap-6 items-start">
-
-            {/* IMAGEN PASTEL SUAVECITA */}
-            <img
-              src={playa.imagen}
-              alt={playa.nombre}
-              className="w-full md:w-80 rounded-2xl object-cover 
-              shadow-md shadow-sky-200/60 border border-sky-100
-              transition-all duration-500 
-              hover:scale-105 hover:shadow-sky-300/80"
-            />
-
-            {/* TEXTO */}
-            <div className="flex-1 text-sky-800">
-              <h2 className="text-2xl font-semibold text-sky-700 mb-3 
-              border-b-4 border-sky-200 pb-1 inline-block">
-                {playa.nombre}
-              </h2>
-
-              <p className="leading-relaxed text-lg mb-2 text-sky-900/80">
-                {playa.descripcion}
-              </p>
-
-              <p className="leading-relaxed text-lg text-sky-900/80">
-                <strong className="text-teal-700">Por qué visitarla:</strong>{" "}
-                {playa.razones}
-              </p>
-
-              <p className="leading-relaxed mt-1 text-lg text-sky-900/80">
-                <strong className="text-teal-700">Consejo:</strong>{" "}
-                {playa.consejo}
-              </p>
-            </div>
+          <div
+            className={`mt-3 p-3 rounded-xl bg-white/70 transition-all duration-500 overflow-hidden ${
+              open ? "max-h-40 opacity-100" : "max-h-0 opacity-0"
+            }`}
+          >
+            {open && <p className="italic">{playa.extra}</p>}
           </div>
         </div>
-      ))}
+      </div>
+    );
+  };
 
+  return (
+      <div className="min-h-screen bg-[#CFE8FF] py-16 px-4">
 
-      {/* ANIMACIONES */}
-      <style>
-        {`
-        @keyframes float {
-          0% { transform: translateY(0); }
-          50% { transform: translateY(-8px); }
-          100% { transform: translateY(0); }
-        }
+      <h1 className="text-center text-5xl font-extrabold text-sky-900 mb-16 drop-shadow-sm">
+        Playas del Perú
+      </h1>
 
-        @keyframes slideUp {
-          0% { opacity: 0; transform: translateY(40px); }
-          100% { opacity: 1; transform: translateY(0); }
-        }
+      <div className="w-[95%] mx-auto space-y-24">
+        {regiones.map((region, idx) => (
+          <section key={idx}>
+            <h2 className="text-4xl font-bold text-center mb-10 text-sky-900">
+              {region.region}
+            </h2>
 
-        @keyframes waveBg {
-          0% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-          100% { background-position: 0% 50%; }
-        }
-        `}
-      </style>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8">
+              {playasPorRegion[idx].map((playa, i) => (
+                <PlayaCard key={i} playa={playa} />
+              ))}
+            </div>
+          </section>
+        ))}
+      </div>
     </div>
   );
 };

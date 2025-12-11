@@ -25,7 +25,7 @@ export function CarritoProvider({ children }) {
             if (cantidad && p.cantidad > cantidad) {
               return { ...p, cantidad: p.cantidad - cantidad };
             }
-            return null; // eliminar completamente
+            return null;
           }
           return p;
         })

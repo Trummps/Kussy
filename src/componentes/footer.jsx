@@ -100,7 +100,7 @@ export default function Footer() {
 
       {/* COPYRIGHT */}
       <p className="relative mt-6 text-center text-sky-900 font-semibold text-sm md:text-base opacity-95 z-10">
-        © Kusy {new Date().getFullYear()} — Todos los derechos reservados.
+        © Kussy {new Date().getFullYear()} — Todos los derechos reservados.
       </p>
 
       {/* ANIMACIÓN PASTEL */}

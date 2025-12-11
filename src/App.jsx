@@ -1,35 +1,35 @@
 import { Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-import Header from "./componentes/Header";
+import Header from "./componentes/header";
 import Carousel from "./componentes/Carousel";
 
-import Lentes from "./componentes/Lentes";
+import Lentes from "./componentes/lentes";
 import Perfume from "./componentes/Perfume";
 import Crema from "./componentes/Crema";
 import Labial from "./componentes/Labial";
-import Shampoos from "./componentes/Shampoos";
+import Shampoos from "./componentes/shampoos";
 import Sombras from "./componentes/Sombras";
-import Correctores from "./componentes/Correctores";
-import Rubores from "./componentes/Rubores";
-import Rimeles from "./componentes/Rimeles";
+import Correctores from "./componentes/correctores";
+import Rubores from "./componentes/rubores";
+import Rimeles from "./componentes/rimeles";
 import Jabones from "./componentes/Jabones";
-import Cejas from "./componentes/Cejas";
+import Cejas from "./componentescejas";
 import Pestanas from "./componentes/Pestanas";
 
-import Fauna from "./componentes/Fauna";
-import PlayasPeru from "./componentes/Playa"; // <-- corregido
-import RecursosMarinos from "./componentes/Recursos"; // <-- corregido
-import Flora from "./componentes/Flora";
+import Fauna from "./componentes/fauna";
+import PlayasPeru from "./componentes/playa"; // <-- corregido
+import RecursosMarinos from "./componentes/recursos"; // <-- corregido
+import Flora from "./componentes/flora";
 import Mar from "./componentes/Mar";
-import Footer from "./componentes/Footer";
+import Footer from "./componentes/footer";
 import Contacto from "./componentes/Contacto";
 import Login from "./componentes/Login";
 import Hola from "./componentes/Hola";
 import Fundadores from "./componentes/Fundadores";
 import Pago from "./componentes/Pago";
-import Serums from "./componentes/Serums";
-import Comunidad from "./componentes/Comunidad";
+import Serums from "./componentes/serums";
+import Comunidad from "./componentes/comunidad";
 
 import { CarritoProvider } from "./componentes/CarritoContext"; // <-- corregido
 import Carrito from "./componentes/Carrito"; // <-- corregido

@@ -13,7 +13,10 @@ export default function Header() {
   const [usuario, setUsuario] = useState(null);
   const navigate = useNavigate();
 
-  const totalCantidad = carrito.reduce((acc, p) => acc + (p.cantidad || 0), 0);
+  const totalCantidad = carrito.reduce(
+    (acc, p) => acc + (p.cantidad || 0),
+    0
+  );
 
   useEffect(() => {
     const auth = getAuth();
@@ -41,78 +44,70 @@ export default function Header() {
 
   return (
     <>
-      <header className="w-full bg-gradient-to-r from-sky-100 via-sky-200 to-sky-100 shadow-lg z-50">
+      <header className="w-full bg-gradient-to-r from-sky-100 via-sky-200 to-sky-100 shadow-lg relative z-[100] overflow-visible">
 
         {/* TOP HEADER */}
         <div className="flex flex-col md:flex-row justify-between items-center px-6 py-6">
           {/* LOGO */}
-          <div className="flex items-center gap-4">
-            <img
-              src="/andre.png"
-              className="h-28 transition-transform duration-300 hover:scale-110 cursor-pointer"
-            />
-          </div>
+          <img
+            src="/andre.png"
+            className="h-28 cursor-pointer hover:scale-110 transition-transform"
+            alt="Logo"
+          />
 
           {/* BUSCADOR */}
-          <form onSubmit={handleSearch} className="flex items-center mt-4 md:mt-0">
+          <form onSubmit={handleSearch} className="flex mt-4 md:mt-0">
             <input
-              type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Buscar productos..."
-              className="px-4 py-3 rounded-l-lg w-72 md:w-80 outline-none font-semibold text-sky-900 bg-sky-50 shadow-inner placeholder-sky-400"
+              className="px-4 py-3 rounded-l-lg w-72 bg-sky-50 font-semibold outline-none shadow-inner"
             />
-            <button
-              type="submit"
-              className="px-4 py-3 bg-sky-400 hover:bg-sky-500 rounded-r-lg font-semibold text-white shadow-md"
-            >
+            <button className="px-4 py-3 bg-sky-400 hover:bg-sky-500 text-white rounded-r-lg shadow">
               🔍
             </button>
           </form>
 
-          {/* LOGIN / REGISTRO / USUARIO / CARRITO */}
-          <div className="flex gap-4 mt-4 md:mt-0 items-center relative">
+          {/* USUARIO / CARRITO */}
+          <div className="flex gap-4 items-center mt-4 md:mt-0 relative">
             {usuario ? (
               <>
-                <Link to="/perfil" className="font-semibold text-sky-900 hover:text-sky-600">
+                <span className="font-semibold text-sky-900">
                   {usuario.displayName || "Mi Perfil"}
-                </Link>
-               
+                </span>
                 <button
                   onClick={cerrarSesion}
-                  className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+                  className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg"
                 >
-                  Cerrar Sesión
+                  Cerrar sesión
                 </button>
               </>
             ) : (
               <>
-                <Link to="/iniciar-sesion" className="font-semibold text-sky-900 hover:text-sky-600">
-                  Iniciar Sesión
+                <Link to="/iniciar-sesion" className="font-semibold text-sky-900">
+                  Iniciar sesión
                 </Link>
-                <Link to="/registrarse" className="font-semibold text-sky-900 hover:text-sky-600">
+                <Link to="/registrarse" className="font-semibold text-sky-900">
                   Registrarse
                 </Link>
               </>
             )}
 
-            <div className="relative">
-              <button
-                onClick={() => setMostrarCarrito(!mostrarCarrito)}
-                className="font-semibold text-sky-900 hover:text-sky-600 flex items-center gap-1"
-              >
-                🛒 Carrito
-              </button>
+            <button
+              onClick={() => setMostrarCarrito(!mostrarCarrito)}
+              className="relative text-xl"
+            >
+              🛒
               {totalCantidad > 0 && (
-                <span className="absolute -top-2 -right-2 bg-red-400 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm">
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs">
                   {totalCantidad}
                 </span>
               )}
-            </div>
+            </button>
           </div>
         </div>
 
-        {/* NAVBAR */}
+     {/* NAVBAR */}
         <nav className="bg-sky-200/70 backdrop-blur-md py-4 px-10 rounded-lg mx-6 mb-4 shadow-inner relative z-40">
           <ul className="flex flex-wrap gap-8">
             {/* MAR PERUANO */}
@@ -166,21 +161,29 @@ export default function Header() {
           </ul>
         </nav>
 
-        {/* RESULTADOS DE BUSQUEDA */}
+        {/* RESULTADOS */}
         {resultados.length > 0 && (
-          <div className="bg-sky-50 rounded-xl shadow p-4 mx-6 mb-6 relative z-50">
-            <h3 className="font-semibold text-sky-700 mb-4">Resultados:</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="bg-sky-50 rounded-xl shadow p-4 mx-6 mb-6 relative z-[300]">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="font-semibold text-sky-700">Resultados</h3>
+              <button
+                onClick={() => setResultados([])}
+                className="text-sm px-3 py-1 bg-red-400 text-white rounded hover:bg-red-500"
+              >
+                Cerrar ventana ✖
+              </button>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {resultados.map((p) => (
-                <div key={p.id} className="bg-white rounded-xl shadow hover:shadow-xl transition p-3 border border-sky-100">
-                  <Link to={`/${p.categoria}`}>
-                    <img src={p.imagen} alt={p.nombre} className="w-full h-40 object-cover rounded-lg mb-3"/>
-                  </Link>
-                  <h4 className="font-semibold text-sky-900">{p.nombre}</h4>
-                  <p className="text-sky-500 text-sm">{p.marca}</p>
-                  {p.precio && <p className="font-bold text-sky-700 mt-1">S/ {p.precio}</p>}
-                  <button onClick={() => agregarProducto(p)} className="mt-3 w-full bg-sky-400 hover:bg-sky-500 text-white font-semibold py-2 rounded-lg">
-                    Añadir al carrito 🛒
+                <div key={p.id} className="bg-white p-3 rounded-xl shadow hover:shadow-lg transition">
+                  <img src={p.imagen} className="h-40 w-full object-cover rounded mb-2" alt={p.nombre} />
+                  <h4 className="font-semibold">{p.nombre}</h4>
+                  <button
+                    onClick={() => agregarProducto(p)}
+                    className="mt-2 w-full bg-sky-400 hover:bg-sky-500 text-white py-2 rounded-lg"
+                  >
+                    Añadir al carrito
                   </button>
                 </div>
               ))}
@@ -189,9 +192,9 @@ export default function Header() {
         )}
       </header>
 
-      {/* Carrito fijo */}
+      {/* CARRITO */}
       {mostrarCarrito && (
-        <div className="fixed top-24 right-10 z-[9999999]">
+        <div className="fixed top-24 right-10 z-[99999]">
           <Carrito />
         </div>
       )}

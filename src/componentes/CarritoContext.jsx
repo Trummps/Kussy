@@ -4,42 +4,95 @@ export const CarritoContext = createContext();
 
 export function CarritoProvider({ children }) {
   const [carrito, setCarrito] = useState([]);
+  const [mostrarResultados, setMostrarResultados] = useState(true);
 
+  // AGREGAR PRODUCTO
   const agregarProducto = (producto) => {
+    if (!producto.precio) {
+      console.error("Producto sin precio:", producto);
+      return;
+    }
+
     setCarrito((prev) => {
       const existe = prev.find((p) => p.id === producto.id);
+
       if (existe) {
         return prev.map((p) =>
-          p.id === producto.id ? { ...p, cantidad: p.cantidad + 1 } : p
+          p.id === producto.id
+            ? { ...p, cantidad: p.cantidad + 1 }
+            : p
         );
       }
-      return [...prev, { ...producto, cantidad: 1 }];
+
+      return [
+        ...prev,
+        {
+          id: producto.id,
+          nombre: producto.nombre,
+          precio: producto.precio,
+          cantidad: 1,
+        },
+      ];
     });
   };
 
-  const quitarProducto = (id, cantidad = null) => {
-    setCarrito((prev) =>
-      prev
-        .map((p) => {
-          if (p.id === id) {
-            if (cantidad && p.cantidad > cantidad) {
-              return { ...p, cantidad: p.cantidad - cantidad };
-            }
-            return null;
-          }
-          return p;
-        })
-        .filter(Boolean)
-    );
+  // QUITAR PRODUCTO
+  const quitarProducto = (id) => {
+    setCarrito((prev) => prev.filter((p) => p.id !== id));
   };
 
-  const limpiarCarrito = () => setCarrito([]);
+  // LIMPIAR CARRITO
+  const limpiarCarrito = () => {
+    setCarrito([]);
+  };
+
+  // CERRAR RESULTADOS
+  const cerrarResultados = () => {
+    setCarrito([]);
+    setMostrarResultados(false);
+  };
+
+  // TOTAL
+  const total = carrito.reduce(
+    (acc, p) => acc + p.precio * p.cantidad,
+    0
+  );
 
   return (
     <CarritoContext.Provider
-      value={{ carrito, agregarProducto, quitarProducto, limpiarCarrito }}
+      value={{
+        carrito,
+        agregarProducto,
+        quitarProducto,
+        limpiarCarrito,
+      }}
     >
       {children}
+
+      {mostrarResultados && (
+        <div style={{ padding: "20px", maxWidth: "400px" }}>
+          <h2>Carrito</h2>
+
+          {carrito.length === 0 ? (
+            <p>No hay productos</p>
+          ) : (
+            <>
+              {carrito.map((p) => (
+                <div key={p.id} style={{ marginBottom: "10px" }}>
+                  <strong>{p.nombre}</strong>
+                  <p>Precio: S/ {p.precio}</p>
+                  <p>Cantidad: {p.cantidad}</p>
+                  <p>
+                    Subtotal: <b>S/ {p.precio * p.cantidad}</b>
+                  </p>
+                </div>
+              ))}
+
+              <h3>Total: S/ {total}</h3>
+            </>
+          )}
+        </div>
+      )}
     </CarritoContext.Provider>
   );
 }

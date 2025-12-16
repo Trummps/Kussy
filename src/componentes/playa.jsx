@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
 const PlayasPeru = () => {
-  // Tarjetas todas en celeste bebé claro
   const regiones = [
     { region: "Norte" },
     { region: "Centro" },
@@ -32,7 +31,7 @@ const PlayasPeru = () => {
           "Vida nocturna activa",
         ],
         extra:
-          "Dato curioso: Máncora tiene vientos constantes y olas largas perfectas para surf.",
+          "Dato curioso: Máncora es famosa por sus olas largas y constantes.",
         imagen: "/mancora.jpg",
       },
     ],
@@ -71,7 +70,7 @@ const PlayasPeru = () => {
           "Mar templado",
         ],
         extra:
-          "Dato curioso: los caballitos de totora tienen más de 3000 años de historia.",
+          "Dato curioso: los caballitos de totora tienen más de 3000 años.",
         imagen: "/huanchaco.jpg",
       },
       {
@@ -80,9 +79,10 @@ const PlayasPeru = () => {
         caracteristicas: [
           "Aves marinas",
           "Lobos marinos",
-          "Formaciones naturales",
+          "Paisajes únicos",
         ],
-        extra: "Dato curioso: hogar de grandes colonias de lobos marinos.",
+        extra:
+          "Dato curioso: albergan una de las mayores colonias de lobos marinos.",
         imagen: "/islasballestas.png",
       },
     ],
@@ -96,18 +96,19 @@ const PlayasPeru = () => {
           "Zona protegida",
         ],
         extra:
-          "Dato curioso: su forma semicerrada crea una piscina natural.",
+          "Dato curioso: su forma crea una piscina natural.",
         imagen: "/lamina.jpg",
       },
       {
         nombre: "🏝️ Playa Roja (Paracas)",
-        descripcion: "Arena rojiza única por rocas volcánicas.",
+        descripcion: "Arena rojiza por rocas volcánicas.",
         caracteristicas: [
           "Fotografía ideal",
           "Clima estable",
-          "Acantilados impresionantes",
+          "Acantilados",
         ],
-        extra: "Dato curioso: su color proviene de rocas volcánicas.",
+        extra:
+          "Dato curioso: el color proviene de la erosión volcánica.",
         imagen: "/playaroja.jpg",
       },
     ],
@@ -119,31 +120,40 @@ const PlayasPeru = () => {
     return (
       <div
         onClick={() => setOpen(!open)}
-        className="bg-[#A9C7DA]
- rounded-3xl shadow-md border border-white/40 
-        overflow-hidden transform transition-all duration-500 
-        hover:shadow-lg hover:-translate-y-2 cursor-pointer"
+        className="bg-[#A9C7DA] rounded-3xl shadow-lg 
+        border border-white/40 overflow-hidden 
+        transition-all duration-500 hover:scale-[1.02] cursor-pointer"
       >
         <img
           src={playa.imagen}
           alt={playa.nombre}
-          className="w-full h-64 object-cover transition-transform duration-700 hover:scale-110"
+          className="w-full h-64 object-cover transition-transform duration-700 hover:scale-105"
         />
+
         <div className="p-6 text-sky-900">
-          <h3 className="text-2xl font-bold mb-2">{playa.nombre}</h3>
-          <p className="opacity-80 mb-3">{playa.descripcion}</p>
-          <ul className="list-disc ml-5 opacity-80 space-y-1 text-sm">
+          <h3 className="text-2xl font-extrabold mb-2">
+            {playa.nombre}
+          </h3>
+
+          <p className="opacity-80 mb-3">
+            {playa.descripcion}
+          </p>
+
+          <ul className="list-disc ml-5 space-y-1 text-sm opacity-80">
             {playa.caracteristicas.map((item, i) => (
               <li key={i}>{item}</li>
             ))}
           </ul>
 
           <div
-            className={`mt-3 p-3 rounded-xl bg-white/70 transition-all duration-500 overflow-hidden ${
-              open ? "max-h-40 opacity-100" : "max-h-0 opacity-0"
+            className={`mt-4 bg-white/70 rounded-xl px-4 py-3 text-sm italic
+            transition-all duration-500 ${
+              open
+                ? "max-h-32 opacity-100"
+                : "max-h-0 opacity-0 overflow-hidden"
             }`}
           >
-            {open && <p className="italic">{playa.extra}</p>}
+            {playa.extra}
           </div>
         </div>
       </div>
@@ -151,20 +161,19 @@ const PlayasPeru = () => {
   };
 
   return (
-      <div className="min-h-screen bg-[#CFE8FF] py-16 px-4">
-
-      <h1 className="text-center text-5xl font-extrabold text-sky-900 mb-16 drop-shadow-sm">
+    <div className="min-h-screen bg-[#CFE8FF] py-16 px-4">
+      <h1 className="text-center text-5xl font-extrabold text-sky-900 mb-20">
         Playas del Perú
       </h1>
 
       <div className="w-[95%] mx-auto space-y-24">
         {regiones.map((region, idx) => (
           <section key={idx}>
-            <h2 className="text-4xl font-bold text-center mb-10 text-sky-900">
+            <h2 className="text-4xl font-bold text-center mb-12 text-sky-900">
               {region.region}
             </h2>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
               {playasPorRegion[idx].map((playa, i) => (
                 <PlayaCard key={i} playa={playa} />
               ))}

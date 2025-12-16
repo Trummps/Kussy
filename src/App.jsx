@@ -14,7 +14,7 @@ import Correctores from "./componentes/correctores";
 import Rubores from "./componentes/rubores";
 import Rimeles from "./componentes/rimeles";
 import Jabones from "./componentes/Jabones";
-import Cejas from "./componentescejas";
+import Cejas from "./componentes/cejas";
 import Pestanas from "./componentes/Pestanas";
 
 import Fauna from "./componentes/fauna";

@@ -26,7 +26,7 @@ import Footer from "./componentes/footer";
 import Contacto from "./componentes/contacto";
 import Login from "./componentes/Login";
 import Hola from "./componentes/Hola";
-import Fundadores from "./componentes/fundadores";
+import Fundadores from "./componentes/Fundadores";
 import Pago from "./componentes/Pago";
 import Serums from "./componentes/serums";
 import Comunidad from "./componentes/comunidad";

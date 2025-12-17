@@ -6,7 +6,7 @@ import Carousel from "./componentes/carousel";
 
 import Lentes from "./componentes/lentes";
 import Perfume from "./componentes/perfume";
-import Crema from "./componentes/Crema"; 
+import Crema from "./componentes/crema"; 
 import Labial from "./componentes/Labial";
 import Shampoos from "./componentes/shampoos";
 import Sombras from "./componentes/Sombras";

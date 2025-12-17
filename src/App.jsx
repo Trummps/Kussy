@@ -30,9 +30,9 @@ import Fundadores from "./componentes/Fundadores";
 import Pago from "./componentes/Pago";
 import Serums from "./componentes/serums";
 import Comunidad from "./componentes/comunidad";
+import { CarritoProvider } from "./componentes/CarritoContext";
+import Carrito from "./componentes/carrito"; // ✅
 
-import { CarritoProvider } from "./componentes/CarritoContext"; // <-- corregido
-import Carrito from "./carrito"; // ✅
 
 
 

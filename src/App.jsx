@@ -32,7 +32,7 @@ import Serums from "./componentes/serums";
 import Comunidad from "./componentes/comunidad";
 
 import { CarritoProvider } from "./componentes/CarritoContext"; // <-- corregido
-import carrito from "./componentes/carrito"; // <-- corregido
+import  carrito from "./componentes/carrito";
 
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 

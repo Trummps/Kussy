@@ -7,15 +7,15 @@ import Carousel from "./componentes/carousel";
 import Lentes from "./componentes/lentes";
 import Perfume from "./componentes/perfume";
 import Crema from "./componentes/crema"; 
-import Labial from "./componentes/Labial";
+import Labial from "./componentes/labial";
 import Shampoos from "./componentes/shampoos";
-import Sombras from "./componentes/Sombras";
+import Sombras from "./componentes/sombras";
 import Correctores from "./componentes/correctores";
 import Rubores from "./componentes/rubores";
 import Rimeles from "./componentes/rimeles";
-import Jabones from "./componentes/Jabones";
+import Jabones from "./componentes/jabones";
 import Cejas from "./componentes/cejas";
-import Pestanas from "./componentes/Pestanas";
+import Pestanas from "./componentes/pestanas";
 
 import Fauna from "./componentes/fauna";
 import PlayasPeru from "./componentes/playa"; // <-- corregido

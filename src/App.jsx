@@ -2,7 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 import Header from "./componentes/header";
-import Carousel from "./componentes/ccdarousel";
+import Carousel from "./componentes/carousel";
 
 import Lentes from "./componentes/lentes";
 import Perfume from "./componentes/perfume";

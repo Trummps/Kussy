@@ -23,10 +23,10 @@ import RecursosMarinos from "./componentes/recursos"; // <-- corregido
 import Flora from "./componentes/flora";
 import Mar from "./componentes/Mar";
 import Footer from "./componentes/footer";
-import Contacto from "./componentes/Contacto";
+import Contacto from "./componentes/contacto";
 import Login from "./componentes/Login";
 import Hola from "./componentes/Hola";
-import Fundadores from "./componentes/Fundadores";
+import Fundadores from "./componentes/fundadores";
 import Pago from "./componentes/Pago";
 import Serums from "./componentes/serums";
 import Comunidad from "./componentes/comunidad";

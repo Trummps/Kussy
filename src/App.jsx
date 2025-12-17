@@ -31,9 +31,7 @@ import Pago from "./componentes/Pago";
 import Serums from "./componentes/serums";
 import Comunidad from "./componentes/comunidad";
 import { CarritoProvider } from "./componentes/CarritoContext";
-import Carrito from "./componentes/carrito"; // ✅
-
-
+import Carrito from "./componentes/CarritoContext";
 
 
 import { getAuth, onAuthStateChanged } from "firebase/auth";

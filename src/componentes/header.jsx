@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { CarritoContext } from "./CarritoContext";
-import Carrito from "./Carrito";
+import Carrito from "./carrito";
 import { todosLosProductos } from "../data/productos";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 
